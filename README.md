@@ -41,7 +41,7 @@ src/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/dashboard-template.git
+git clone https://github.com/anoop-singh-dev/mui-react-template.git
 cd dashboard-template
 
 # 2. Install dependencies
