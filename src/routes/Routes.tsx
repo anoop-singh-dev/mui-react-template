@@ -9,6 +9,8 @@ const Register = lazy(() => import('../pages/Register'));
 const Dashboard = lazy(() => import('../pages/Dashboard'));
 const User = lazy(() => import('../pages/User'));
 
+const NotFound = lazy(() => import('../pages/NotFound'));
+
 interface AppRoutesProps {
   sidebarOpen: boolean;
   toggleSidebar: () => void;
@@ -42,6 +44,10 @@ const AppRoutes = ({ sidebarOpen, toggleSidebar }: AppRoutesProps) => {
             </PrivateRoute>
           }
         />
+
+        <Route path="*" element={<NotFound />} /> 
+
+        
       </Routes>
     </Suspense>
   );

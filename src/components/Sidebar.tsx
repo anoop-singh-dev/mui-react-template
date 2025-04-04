@@ -1,4 +1,4 @@
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, Box } from '@mui/material';
+import { Drawer, List, ListItem, ListItemIcon, ListItemText, Box, useTheme } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonIcon from '@mui/icons-material/Person';
 import { Link, useLocation } from 'react-router-dom';
@@ -10,6 +10,7 @@ interface SidebarProps {
 
 const Sidebar = ({ sidebarOpen }: SidebarProps) => {
   const location = useLocation();
+  const theme = useTheme(); // 🌙 Get current theme
 
   const menuItems = [
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
@@ -22,16 +23,17 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
       sx={{
         width: sidebarOpen ? 240 : 60,
         flexShrink: 0,
-        whiteSpace: 'nowrap', // Prevent content from breaking
-        overflowX: 'hidden', // Ensure no horizontal scroll
+        whiteSpace: 'nowrap',
+        overflowX: 'hidden',
         '& .MuiDrawer-paper': {
           width: sidebarOpen ? 240 : 60,
           transition: 'width 0.3s ease',
-          overflowX: 'hidden', // Prevents scroll when reopening
-          overflowY: 'auto', // Allows scrolling vertically
-          position: 'relative', // Fix width calculations
-          backgroundColor: '#fff',
-          borderRight: '1px solid #e0e0e0',
+          overflowX: 'hidden',
+          overflowY: 'auto',
+          position: 'relative',
+          backgroundColor: theme.palette.background.default, // ✅ Dynamic bg
+          borderRight: `1px solid ${theme.palette.divider}`,
+          color: theme.palette.text.primary, // ✅ Text adapts
         },
       }}
     >
@@ -43,7 +45,7 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
           justifyContent: 'center',
           height: 64,
           p: 1,
-          borderBottom: '1px solid #e0e0e0',
+          borderBottom: `1px solid ${theme.palette.divider}`,
         }}
       >
         {sidebarOpen ? (
@@ -63,17 +65,29 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
               component={Link}
               to={item.path}
               sx={{
-                backgroundColor: isActive ? '#f0f0f0' : 'transparent',
-                '&:hover': { backgroundColor: '#e0e0e0' },
+                backgroundColor: isActive ? theme.palette.action.selected : 'transparent',
+                '&:hover': {
+                  backgroundColor: theme.palette.action.hover,
+                },
                 borderRadius: '4px',
                 mb: 1,
               }}
             >
-              <ListItemIcon sx={{ color: isActive ? '#2962FF' : 'inherit' }}>
+              <ListItemIcon
+                sx={{
+                  color: isActive ? theme.palette.primary.main : theme.palette.text.primary,
+                  minWidth: 40,
+                }}
+              >
                 {item.icon}
               </ListItemIcon>
               {sidebarOpen && (
-                <ListItemText primary={item.text} sx={{ color: isActive ? '#2962FF' : 'inherit' }} />
+                <ListItemText
+                  primary={item.text}
+                  sx={{
+                    color: isActive ? theme.palette.primary.main : theme.palette.text.primary,
+                  }}
+                />
               )}
             </ListItem>
           );

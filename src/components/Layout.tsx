@@ -10,14 +10,26 @@ interface LayoutProps {
 
 const Layout = ({ sidebarOpen, toggleSidebar, children }: LayoutProps) => {
   return (
-    <Box sx={{ display: 'flex' }}>
-      {/* Sidebar Component */}
+    <Box sx={{ display: 'flex', height: '100vh' }}>
+      {/* Sidebar */}
       <Sidebar sidebarOpen={sidebarOpen} />
 
-      {/* Main Content Area */}
-      <Box sx={{ flexGrow: 1 }}>
+      {/* Main content area */}
+      <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+        {/* Header (fixed height) */}
         <Header sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
-        <Box sx={{ marginTop: '64px', padding: '20px' }}>{children}</Box>
+
+        {/* Page content with top margin to avoid header overlap */}
+        <Box
+          sx={{
+            flexGrow: 1,
+            padding: '20px',
+            marginTop: '64px', // adjust based on your Header height
+            overflowY: 'auto'
+          }}
+        >
+          {children}
+        </Box>
       </Box>
     </Box>
   );

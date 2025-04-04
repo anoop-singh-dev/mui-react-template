@@ -110,7 +110,7 @@ export const theme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          borderRadius: 12,
+          borderRadius: 2,
           boxShadow: '0px 2px 10px rgba(0,0,0,0.08)',
         },
       },
