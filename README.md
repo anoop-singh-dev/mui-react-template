@@ -1,54 +1,119 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 🚀 Dashboard Template (React + TypeScript + MUI + Jest)
 
-Currently, two official plugins are available:
+This is a modern dashboard template built with **React**, **TypeScript**, **Material UI**, and **React Router v6+**, featuring **protected routes**, **lazy loading**, and **unit testing** via **Jest + React Testing Library**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 📁 Folder Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+src/
+│
+├── components/              # Reusable UI components like Layout, Header, Sidebar
+│   └── Layout.tsx
+│
+├── context/                 # Global providers, Auth context
+│   └── AuthContext.tsx
+│
+├── pages/                   # All page components
+│   ├── Login.tsx
+│   ├── Register.tsx
+│   ├── Dashboard.tsx
+│   └── User.tsx
+│
+├── routes/                  # Routing logic
+│   ├── Routes.tsx           # All route definitions using Routes component
+│   └── PrivateRoute.tsx     # Route wrapper to protect pages behind authentication
+│
+├── __tests__/ or components/__tests__/
+│                            # All unit and integration tests
+│   └── Header.test.tsx
+│
+├── App.tsx                  # App root, loads main route structure
+├── main.tsx                 # ReactDOM render, app entry point
+└── index.html               # HTML template
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🛠️ Setup Instructions
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+# 1. Clone the repository
+git clone https://github.com/your-username/dashboard-template.git
+cd dashboard-template
+
+# 2. Install dependencies
+npm install
+
+# 3. Start the development server
+npm run dev
 ```
+
+---
+
+## 🧪 Running Tests
+
+This project uses **Jest** and **React Testing Library**.
+
+### Run all tests:
+
+```bash
+npm run test
+```
+
+### Run a specific test file:
+
+```bash
+npx jest src/components/Header.test.tsx
+```
+
+Make sure your `tsconfig.app.json` includes the following for compatibility:
+
+```json
+"jsx": "react-jsx",
+"esModuleInterop": true
+```
+
+---
+
+## 🔒 Protected Routes
+
+Pages like `/dashboard` and `/user` are protected using a `<PrivateRoute />` component. If the user is not authenticated, they will be redirected to `/login`.
+
+---
+
+## 🌐 Routing
+
+Routing logic is abstracted in `src/routes/Routes.tsx` using `Routes` and `Route` components from `react-router-dom`. This supports cleaner code and better scalability.
+
+---
+
+## 🔍 Sample Test
+
+```tsx
+// src/components/__tests__/Header.test.tsx
+import { render, screen } from '@testing-library/react';
+import Header from '../Header';
+
+test('renders header buttons', () => {
+  render(<Header sidebarOpen={true} toggleSidebar={jest.fn()} />);
+  expect(screen.getAllByRole('button')).toHaveLength(3);
+});
+```
+
+---
+
+## 💡 Future Improvements
+
+- Role-based access control (`allowedRoles`)
+- API integration (with Axios/React Query)
+- Add loading states and error boundaries
+- Responsive sidebar toggle on mobile
+
+---
+
+## 📄 License
+
+MIT — feel free to use and adapt this template as needed.
