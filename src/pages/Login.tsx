@@ -1,19 +1,22 @@
 import { useForm } from 'react-hook-form';
-import { TextField, Button, Box, Typography, Card, CardContent, FormControlLabel, Checkbox, Link } from '@mui/material';
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  FormControlLabel,
+  Checkbox,
+  Link,
+} from '@mui/material';
 import { useAuth } from '../context/AuthContext';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-// ✅ Define the form data type
-type FormData = {
-  email: string;
-  password: string;
-  rememberMe?: boolean; // optional to match Yup
-};
-
 // ✅ Define Yup validation schema
-const schema = Yup.object().shape({
+const schema = Yup.object({
   email: Yup.string()
     .email('Invalid email address')
     .required('Email is required'),
@@ -21,14 +24,21 @@ const schema = Yup.object().shape({
     .min(6, 'Password must be at least 6 characters')
     .required('Password is required'),
   rememberMe: Yup.boolean(),
-});
+}).required();
+
+// ✅ Manually define the form data type to match schema
+type FormData = {
+  email: string;
+  password: string;
+  rememberMe?: boolean;
+};
 
 const Login = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -36,6 +46,12 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data: FormData) => {
+    if (data.rememberMe) {
+      localStorage.setItem('userEmail', data.email);
+    } else {
+      sessionStorage.setItem('userEmail', data.email);
+    }
+
     login(data.email);
     navigate('/dashboard');
   };
@@ -49,29 +65,29 @@ const Login = () => {
           </Typography>
 
           <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
-            <TextField 
+            <TextField
               label="Email Address"
-              fullWidth 
+              fullWidth
               margin="normal"
-              {...register('email')} 
+              {...register('email')}
               error={!!errors.email}
               helperText={errors.email?.message}
             />
 
-            <TextField 
-              label="Password" 
-              type="password" 
-              fullWidth 
-              margin="normal" 
-              {...register('password')} 
+            <TextField
+              label="Password"
+              type="password"
+              fullWidth
+              margin="normal"
+              {...register('password')}
               error={!!errors.password}
               helperText={errors.password?.message}
             />
 
             <Box display="flex" justifyContent="space-between" alignItems="center">
-              <FormControlLabel 
-                control={<Checkbox {...register('rememberMe')} />} 
-                label="Keep me signed in" 
+              <FormControlLabel
+                control={<Checkbox {...register('rememberMe')} />}
+                label="Keep me signed in"
               />
               <Link href="#" underline="none">
                 Forgot Password?
@@ -83,7 +99,10 @@ const Login = () => {
             </Button>
 
             <Typography textAlign="center" mt={2}>
-              Don't have an account? <Link component={RouterLink} to="/register">Sign Up</Link>
+              Don't have an account?{' '}
+              <Link component={RouterLink} to="/register">
+                Sign Up
+              </Link>
             </Typography>
           </Box>
         </CardContent>
