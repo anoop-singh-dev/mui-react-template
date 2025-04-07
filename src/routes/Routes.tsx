@@ -9,6 +9,8 @@ const Register = lazy(() => import('../pages/Register'));
 const Dashboard = lazy(() => import('../pages/Dashboard'));
 const User = lazy(() => import('../pages/User'));
 const UserList = lazy(() => import('../pages/List'));
+const BacklogTable = lazy(() => import('../pages/Kanban.tsx'));
+
 
 const NotFound = lazy(() => import('../pages/NotFound'));
 
@@ -51,6 +53,17 @@ const AppRoutes = ({ sidebarOpen, toggleSidebar }: AppRoutesProps) => {
             <PrivateRoute>
               <Layout sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
                 <UserList />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/kanban"
+          element={
+            <PrivateRoute>
+              <Layout sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
+                <BacklogTable />
               </Layout>
             </PrivateRoute>
           }

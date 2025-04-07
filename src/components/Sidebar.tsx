@@ -1,6 +1,8 @@
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, Box, useTheme } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonIcon from '@mui/icons-material/Person';
+import ListIcon from '@mui/icons-material/List';
+import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
 import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/logoipsum.svg';
 
@@ -15,7 +17,8 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
   const menuItems = [
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
     { text: 'User', icon: <PersonIcon />, path: '/user' },
-    { text: 'List', icon: <PersonIcon />, path: '/userlist' },
+    { text: 'List', icon: <ListIcon />, path: '/userlist' },
+    { text: 'Kanban', icon: <ViewKanbanIcon  />, path: '/kanban' },
   ];
 
   return (
