@@ -62,7 +62,7 @@ const BacklogTable: React.FC = () => {
     { id: '6812', title: 'Mobile App Integration', state: 'Resolved', assignedTo: 'Barney Thea', priority: 'Medium', dueDate: '21 Mar 2023', type: 'project' }
   ];
 
-  const handleTabChange = (newValue: number) => {
+  const handleTabChange = ( _event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
 
@@ -95,7 +95,7 @@ const BacklogTable: React.FC = () => {
   const projectCount = backlogItems.filter(item => item.type === 'project').length;
 
   // Handle pagination changes
-  const handleChangePage = ( newPage: number) => {
+  const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
   };
 
