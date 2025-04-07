@@ -15,6 +15,7 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
   const menuItems = [
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
     { text: 'User', icon: <PersonIcon />, path: '/user' },
+    { text: 'List', icon: <PersonIcon />, path: '/userlist' },
   ];
 
   return (

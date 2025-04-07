@@ -8,6 +8,7 @@ const Login = lazy(() => import('../pages/Login'));
 const Register = lazy(() => import('../pages/Register'));
 const Dashboard = lazy(() => import('../pages/Dashboard'));
 const User = lazy(() => import('../pages/User'));
+const UserList = lazy(() => import('../pages/List'));
 
 const NotFound = lazy(() => import('../pages/NotFound'));
 
@@ -40,6 +41,16 @@ const AppRoutes = ({ sidebarOpen, toggleSidebar }: AppRoutesProps) => {
             <PrivateRoute>
               <Layout sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
                 <User />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/userlist"
+          element={
+            <PrivateRoute>
+              <Layout sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar}>
+                <UserList />
               </Layout>
             </PrivateRoute>
           }
