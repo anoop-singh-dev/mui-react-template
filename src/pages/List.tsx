@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -70,7 +70,7 @@ const users = [
   },
 ];
 
-const statusStyles = {
+const statusStyles:any = {
   Active: { backgroundColor: "#DCFCE7", color: "#15803D" },
   Pending: { backgroundColor: "#FEF3C7", color: "#B45309" },
   Banned: { backgroundColor: "#FECACA", color: "#B91C1C" },
@@ -78,7 +78,7 @@ const statusStyles = {
 };
 
 const statusTabs = ["All", "Active", "Pending", "Banned", "Rejected"];
-const tabColors = {
+const tabColors:any = {
   All: { bg: "#E5E7EB", color: "#1F2937" },
   Active: { bg: "#BBF7D0", color: "#15803D" },
   Pending: { bg: "#FDE68A", color: "#B45309" },
@@ -93,7 +93,7 @@ export default function UserList() {
   const [roleFilter, setRoleFilter] = useState("");
   const [tabValue, setTabValue] = useState("All");
 
-  const handleMenuClick = (event, index) => {
+  const handleMenuClick = (event:any, index:any) => {
     setAnchorEl(event.currentTarget);
     setMenuIndex(index);
   };
